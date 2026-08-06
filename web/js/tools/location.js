@@ -19,6 +19,7 @@
 	 * @param {Object} [options.geocode] Default google location object, if available
 	 * @param {Places.Coordinates} [options.location] Provide a location to start off with.
 	 *  Can be anything that is accepted by Places.Coordinates constructor.
+	 * @param {String} [options.relationType='Places/locations'] Relation type to use for related locations
 	 * @param {Boolean} [options.showCurrent=true] Whether to allow user to select current location
 	 * @param {Boolean} [options.showLocations=true] Whether to allow user to select their saved locations
 	 * @param {Boolean} [options.showAddress=true] Whether to allow user to enter a custom address
@@ -149,6 +150,7 @@
 		onChoose: new Q.Event(function (coordinates) {
 			this.state.location = coordinates;
 		}, 'Places/location'),
+		relationType: 'Places/locations',
 		location: null, // currently selected location
 		selectedLocation: null,
 		showCurrent: true,
@@ -242,7 +244,7 @@
 						tool.$(".Places_location_related").tool('Streams/related', {
 							publisherId: userId,
 							streamName: 'Places/user/locations',
-							relationType: 'Places/locations',
+							relationType: state.relationType,
 							isCategory: true,
 							editable: false,
 							realtime: true,
@@ -327,7 +329,7 @@
 										}, {
 											publisherId: userId,
 											streamName: 'Places/user/locations',
-											type: 'Places/locations'
+											type: state.relationType
 										});
 									}, {
 										title: textAdd.title,
