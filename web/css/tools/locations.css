@@ -23,6 +23,7 @@
 .Places_locations_node {
 	position: relative;
 	width: 100%;
+	margin-bottom: 10px;
 }
 
 .Places_locations_node_title {

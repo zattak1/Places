@@ -18,16 +18,22 @@
 	 * @param {String} [options.streamName="Places/user/locations"] Category stream name
 	 * @param {String} [options.relationType="Places/locations"] Relation type for locations
 	 * @param {Boolean} [options.showCurrent=false] Show current geolocation row
-	 * @param {Boolean} [options.showAreas=false] Nest expandable Places/area lists under locations
-	 * @param {Boolean} [options.showTables=false] Nest expandable Places/table lists under areas (requires showAreas)
+	 * @param {Object} [options.locations] Permissions for location streams
+	 * @param {Boolean} [options.locations.creatable=false]
+	 * @param {Boolean} [options.locations.editable=false]
+	 * @param {Boolean} [options.locations.closeable=false]
+	 * @param {Object|null} [options.areas=null] Permissions for areas; null skips nesting
+	 * @param {Object|null} [options.tables=null] Permissions for tables; null skips nesting (requires areas)
 	 */
 	Q.Tool.define("Places/locations", function (options) {
 		var tool = this;
 		var state = this.state;
 
 		tool.element.setAttribute('data-show-current', state.showCurrent ? 'true' : 'false');
-		tool.element.setAttribute('data-show-areas', state.showAreas ? 'true' : 'false');
-		tool.element.setAttribute('data-show-tables', (state.showAreas && state.showTables) ? 'true' : 'false');
+		tool.element.setAttribute('data-show-areas', state.areas != null ? 'true' : 'false');
+		tool.element.setAttribute('data-show-tables',
+			(state.areas != null && state.tables != null) ? 'true' : 'false'
+		);
 
 		tool.refresh();
 	},
@@ -37,8 +43,13 @@
 		streamName: 'Places/user/locations',
 		relationType: 'Places/locations',
 		showCurrent: false,
-		showAreas: false,
-		showTables: false,
+		locations: {
+			creatable: false,
+			editable: false,
+			closeable: false
+		},
+		areas: null,
+		tables: null,
 		onCurrent: new Q.Event()
 	},
 
@@ -49,6 +60,7 @@
 		refresh: function () {
 			var tool = this;
 			var state = this.state;
+			var loc = state.locations || {};
 
 			Q.Template.render('Places/locations', {
 				currentLocationText: Q.getObject('location.myCurrentLocation', tool.text)
@@ -64,52 +76,48 @@
 					tool._selectCurrent($(this));
 				});
 
-				tool.$('.Places_locations_related').tool('Streams/related', {
+				var previewOptions = {
+					editable: !!loc.editable,
+					closeable: !!loc.closeable,
+					imagepicker: { showSize: '40' }
+				};
+				if (loc.closeable) {
+					previewOptions.beforeClose = tool._confirmRemove.bind(tool);
+				}
+				if (loc.editable) {
+					previewOptions.actions = {
+						position: 'mr',
+						actions: {
+							edit: function () {
+								var preview = Q.Tool.from(
+									$(this).closest('.Streams_preview_tool')[0],
+									'Streams/preview'
+								);
+								if (preview) {
+									tool.editLocation(preview);
+								}
+							}
+						}
+					};
+				}
+
+				var relatedOptions = {
 					publisherId: state.publisherId,
 					streamName: state.streamName,
 					relationType: state.relationType,
 					isCategory: true,
-					editable: false,
+					editable: !!loc.editable,
 					realtime: true,
 					sortable: false,
-					previewOptions: {
-						editable: false,
-						closeable: false,
-						imagepicker: { showSize: '40' },
-						actions: {
-							position: 'mr',
-							actions: {
-								edit: function () {
-									var preview = Q.Tool.from(
-										$(this).closest('.Streams_preview_tool')[0],
-										'Streams/preview'
-									);
-									if (preview) {
-										tool.editLocation(preview);
-									}
-								},
-								remove: function () {
-									var preview = Q.Tool.from(
-										$(this).closest('.Streams_preview_tool')[0],
-										'Streams/preview'
-									);
-									if (!preview) {
-										return;
-									}
-									Q.confirm(
-										Q.getObject('locations.AreYouSure', tool.text),
-										function (result) {
-											if (!result) {
-												return;
-											}
-											preview.delete();
-										}
-									);
-								}
-							}
+					previewOptions,
+					onRefresh: function () {
+						if (state.areas != null) {
+							tool.wrapExpandable(this, 'location');
 						}
-					},
-					creatable: {
+					}
+				};
+				if (loc.creatable) {
+					relatedOptions.creatable = {
 						'Places/location': {
 							publisherId: state.publisherId,
 							addIconSize: 40,
@@ -120,13 +128,12 @@
 								tool.composeLocation(_proceed);
 							}
 						}
-					},
-					onRefresh: function () {
-						if (state.showAreas) {
-							tool.wrapExpandable(this, 'location');
-						}
-					}
-				}, tool.prefix + 'locations').activate();
+					};
+				}
+
+				tool.$('.Places_locations_related')
+					.tool('Streams/related', relatedOptions, tool.prefix + 'locations')
+					.activate();
 			});
 		},
 
@@ -140,22 +147,34 @@
 		_areasRelatedOptions: function (publisherId, streamName) {
 			var tool = this;
 			var state = tool.state;
+			var areas = state.areas || {};
 
-			return {
+			var previewOptions = {
+				editable: !!areas.editable,
+				closeable: !!areas.closeable,
+				imagepicker: { showSize: '40' }
+			};
+			if (areas.closeable) {
+				previewOptions.beforeClose = tool._confirmRemove.bind(tool);
+			}
+
+			var options = {
 				publisherId,
 				streamName,
 				relationType: 'Places/areas',
 				isCategory: true,
-				editable: true,
+				editable: !!areas.editable,
 				realtime: true,
 				sortable: false,
-				previewOptions: {
-					editable: true,
-					closeable: true,
-					imagepicker: { showSize: '40' },
-					beforeClose: tool._confirmRemove.bind(tool)
-				},
-				creatable: {
+				previewOptions,
+				onRefresh: function () {
+					if (state.areas != null && state.tables != null) {
+						tool.wrapExpandable(this, 'area');
+					}
+				}
+			};
+			if (areas.creatable) {
+				options.creatable = {
 					'Places/area': {
 						publisherId: state.publisherId,
 						addIconSize: 40,
@@ -169,13 +188,9 @@
 							tool.promptTitle('area', this, _proceed);
 						}
 					}
-				},
-				onRefresh: function () {
-					if (state.showAreas && state.showTables) {
-						tool.wrapExpandable(this, 'area');
-					}
-				}
-			};
+				};
+			}
+			return options;
 		},
 
 		/**
@@ -189,22 +204,29 @@
 		_tablesRelatedOptions: function (publisherId, streamName, location) {
 			var tool = this;
 			var state = tool.state;
+			var tables = state.tables || {};
 
-			return {
+			var previewOptions = {
+				editable: !!tables.editable,
+				closeable: !!tables.closeable,
+				imagepicker: { showSize: '40' }
+			};
+			if (tables.closeable) {
+				previewOptions.beforeClose = tool._confirmRemove.bind(tool);
+			}
+
+			var options = {
 				publisherId,
 				streamName,
 				relationType: 'Places/table',
 				isCategory: true,
-				editable: true,
+				editable: !!tables.editable,
 				realtime: true,
 				sortable: false,
-				previewOptions: {
-					editable: true,
-					closeable: true,
-					imagepicker: { showSize: '40' },
-					beforeClose: tool._confirmRemove.bind(tool)
-				},
-				creatable: {
+				previewOptions
+			};
+			if (tables.creatable) {
+				options.creatable = {
 					'Places/table': {
 						publisherId: state.publisherId,
 						addIconSize: 40,
@@ -220,8 +242,9 @@
 							tool.promptTitle('table', this, _proceed);
 						}
 					}
-				}
-			};
+				};
+			}
+			return options;
 		},
 
 		/**
@@ -232,6 +255,47 @@
 		 */
 		wrapExpandable: function (relatedTool, level) {
 			var tool = this;
+
+			// Streams/related may insert next to a nested preview (inside a node title).
+			// Lift any preview that is not this node's owner out to be wrapped separately.
+			$(relatedTool.element).children('.Places_locations_node').each(function () {
+				var $node = $(this);
+				var $title = $node.children('.Places_locations_node_title');
+				var $previews = $title.children('.Streams_preview_tool')
+					.not('.Streams_related_composer, .Streams_preview_composer');
+				if ($previews.length <= 1) {
+					return;
+				}
+
+				var ownerPublisherId = $node.attr('data-publisherId');
+				var ownerStreamName = $node.attr('data-streamName');
+				if (!ownerPublisherId || !ownerStreamName) {
+					// Nodes wrapped before owner attrs existed: first preview is the owner
+					var firstPreview = Q.Tool.from($previews[0], 'Streams/preview');
+					if (firstPreview) {
+						ownerPublisherId = firstPreview.state.publisherId;
+						ownerStreamName = firstPreview.state.streamName;
+						$node.attr({
+							'data-publisherId': ownerPublisherId,
+							'data-streamName': ownerStreamName
+						});
+					}
+				}
+
+				$previews.each(function () {
+					var previewTool = Q.Tool.from(this, 'Streams/preview');
+					if (previewTool
+					&& ownerPublisherId
+					&& ownerStreamName
+					&& previewTool.state.publisherId === ownerPublisherId
+					&& previewTool.state.streamName === ownerStreamName) {
+						return;
+					}
+					var $stray = $(this);
+					$stray.removeData('Places_locations_wrapped');
+					$node.after($stray);
+				});
+			});
 
 			$(relatedTool.element)
 			.children('.Streams_preview_tool')
@@ -253,6 +317,12 @@
 
 				Q.Template.render('Places/locations/node', { level }, function (err, html) {
 					if (err) {
+						$preview.removeData('Places_locations_wrapped');
+						return;
+					}
+					// Preview may have been moved/removed while the template rendered
+					if (!$preview.closest(relatedTool.element).length) {
+						$preview.removeData('Places_locations_wrapped');
 						return;
 					}
 
@@ -260,6 +330,11 @@
 					var $title = $node.find('.Places_locations_node_title');
 					var $content = $node.find('.Places_locations_node_content');
 					var $chevron = $node.find('.Places_locations_chevron');
+
+					$node.attr({
+						'data-publisherId': previewTool.state.publisherId,
+						'data-streamName': previewTool.state.streamName
+					});
 
 					$preview.before($node);
 					$title.prepend($preview);
@@ -350,9 +425,9 @@
 		},
 
 		/**
-		 * Open Places/address to create a new location
+		 * Open Places/address to create a new location via Places/location POST
 		 * @method composeLocation
-		 * @param {Function} _proceed
+		 * @param {Function} _proceed Streams/preview creatable callback (cancel with false)
 		 */
 		composeLocation: function (_proceed) {
 			var tool = this;
@@ -373,14 +448,23 @@
 						if (!place || !place.id) {
 							return;
 						}
-						tool._geocodePlace(place, function (attributes) {
-							Q.handle(_proceed, null, [{
-								title: place.name,
-								publisherId: state.publisherId,
-								attributes
-							}]);
+						Q.req('Places/location', function (err, response) {
+							var msg = Q.firstErrorMessage(err, response && response.errors);
+							if (msg) {
+								Q.alert(msg);
+								return;
+							}
+							Q.handle(_proceed, null, [false]);
 							if (invokeObj && invokeObj.close) {
 								invokeObj.close();
+							}
+						}, {
+							method: 'post',
+							fields: {
+								placeId: place.id,
+								publisherId: state.publisherId,
+								streamName: state.streamName,
+								type: state.relationType
 							}
 						});
 					}
