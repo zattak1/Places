@@ -10,7 +10,9 @@ var Streams = Q.Streams;
 var Places = Q.Places;
 
 Q.text.Places.address = {
-	filter: 'Start typing a location...'
+	filter: 'Start typing a location...',
+	noResults: 'No results',
+	error: "Couldn't search locations right now. Please try again."
 };
 
 /**
@@ -60,7 +62,7 @@ Q.Tool.define("Places/address", function _Places_address(options) {
 				if (Q.latest(filter, latest)) {
 					$(element).empty().append($content);
 				}
-			});
+			}, tool);
 		}, tool);
 		filter.state.onChoose.set(function (element, details) {
 			var placeId = $(element).attr('placeid');
@@ -203,7 +205,7 @@ Q.Tool.define("Places/address", function _Places_address(options) {
 
 var _results = {};
 var _places = {};
-function _getResults(query, callback) {
+function _getResults(query, callback, tool) {
 	query = query.trim();
 	if (_results[query]) {
 		return callback(_results[query]);
@@ -215,8 +217,19 @@ function _getResults(query, callback) {
 	function (err, data) {
 		var results, msg;
 		if (msg = Q.firstErrorMessage(err, data && data.errors)) {
-			results = _results[query] = $('<div class="Places_noResults"/>')
-				.html("No results");
+			// A server error is not a no-match, and must not look like one:
+			// an invalid API key returns HTTP 412 here, which used to render
+			// as "No results" and made a hard outage indistinguishable from
+			// an unusual search term.
+			// Also: do NOT write this into _results. Caching a transient
+			// failure (expired key, quota, network blip) pins it for the rest
+			// of the page session, so the query can never recover by retrying.
+			results = $('<div class="Places_error" />')
+				.text(Q.text.Places.address.error);
+			console.warn("Places/address: " + msg);
+			if (tool) {
+				Q.handle(tool.state.onError, tool, [msg]);
+			}
 			callback(results);
 			return;
 		}
@@ -243,6 +256,13 @@ function _getResults(query, callback) {
 			.appendTo($table);
 			_places[place.id] = place;
 		});
+		if (!$table.find('tr').length) {
+			// A genuine no-match previously rendered as an empty dropdown,
+			// which reads as "still loading". Say so explicitly.
+			results = _results[query] = $('<div class="Places_noResults" />')
+				.text(Q.text.Places.address.noResults);
+			return callback(results);
+		}
 		results = _results[query] = $table;
 		callback(results);
 	}, { fields: { input: query }})

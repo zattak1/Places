@@ -194,6 +194,19 @@
     box-sizing: border-box;
 }
 
+/* Neither state was styled before, so both rendered as bare unpadded text
+   flush against the dropdown edge. The error must not read as a no-match:
+   see _getResults() in tools/address.js. */
+.Places_noResults,
+.Places_error {
+    font-size: 14px;
+    padding: 8px;
+}
+
+.Places_error {
+    color: #b3261e;
+}
+
 .Places_location_dialog .Q_dialog_slot {
 	overflow: visible;
 }
