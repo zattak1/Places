@@ -82,7 +82,12 @@
 					imagepicker: { showSize: '40' }
 				};
 				if (loc.closeable) {
-					previewOptions.beforeClose = tool._confirmRemove.bind(tool);
+					previewOptions.beforeClose = function () {
+						var preview = this;
+						tool._confirmRemove(function () {
+							tool._unrelateLocation(preview);
+						});
+					};
 				}
 				if (loc.editable) {
 					previewOptions.actions = {
@@ -384,6 +389,51 @@
 				function (result) {
 					if (result) {
 						_delete();
+					}
+				}
+			);
+		},
+
+		/**
+		 * Unrelate a location from the category without closing the stream
+		 * @method _unrelateLocation
+		 * @param {Q.Tool} preview Streams/preview tool
+		 */
+		_unrelateLocation: function (preview) {
+			var related = preview.state.related;
+			var publisherId = preview.state.publisherId;
+			var streamName = preview.state.streamName;
+			if (!related || !publisherId || !streamName) {
+				return;
+			}
+
+			preview.element.addClass('Q_working');
+			Q.Masks.show(preview, {
+				shouldCover: preview.element,
+				className: 'Q_removing'
+			});
+
+			Streams.unrelate(
+				related.publisherId,
+				related.streamName,
+				related.type,
+				publisherId,
+				streamName,
+				function (err) {
+					preview.element.removeClass('Q_working');
+					Q.Masks.hide(preview);
+					if (err) {
+						return console.error(err);
+					}
+					var relatedElement = $(preview.element)
+						.closest('.Streams_related_tool')[0];
+					var relatedTool = relatedElement
+						? Q.Tool.from(relatedElement, 'Streams/related')
+						: null;
+					if (relatedTool) {
+						relatedTool.removeRelation(publisherId, streamName);
+					} else {
+						Q.removeElement(preview.element, true);
 					}
 				}
 			);
