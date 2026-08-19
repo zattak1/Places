@@ -94,7 +94,7 @@
 									'Streams/preview'
 								);
 								if (preview) {
-									tool.editLocation(preview);
+									tool.editLocation(preview, this);
 								}
 							}
 						}
@@ -124,8 +124,8 @@
 							title: Q.getObject('locations.newLocation', tool.text)
 								|| Q.getObject('location.create.action', tool.text)
 								|| 'Add Location',
-							preprocess: function (_proceed) {
-								tool.composeLocation(_proceed);
+							preprocess: function (_proceed, previewTool) {
+								tool.composeLocation(_proceed, previewTool && previewTool.element);
 							}
 						}
 					};
@@ -428,8 +428,9 @@
 		 * Open Places/address to create a new location via Places/location POST
 		 * @method composeLocation
 		 * @param {Function} _proceed Streams/preview creatable callback (cancel with false)
+		 * @param {HTMLElement} [trigger] Invocation trigger element inside columns
 		 */
-		composeLocation: function (_proceed) {
+		composeLocation: function (_proceed, trigger) {
 			var tool = this;
 			var state = tool.state;
 
@@ -437,6 +438,7 @@
 				title: Q.getObject('locations.addressTitle', tool.text)
 					|| Q.getObject('location.dialog.title', tool.text)
 					|| 'Choose Location',
+				trigger: trigger || tool.element,
 				className: 'Places_locations_address_invoke',
 				fullscreen: Q.info.isMobile,
 				content: $('<div />').tool('Places/address', {
@@ -476,8 +478,9 @@
 		 * Edit an existing location via Places/address
 		 * @method editLocation
 		 * @param {Q.Tool} preview Streams/preview tool
+		 * @param {HTMLElement} [trigger] Invocation trigger element inside columns
 		 */
-		editLocation: function (preview) {
+		editLocation: function (preview, trigger) {
 			var tool = this;
 			var publisherId = preview.state.publisherId;
 			var streamName = preview.state.streamName;
@@ -505,6 +508,7 @@
 					title: Q.getObject('locations.editAddressTitle', tool.text)
 						|| Q.getObject('location.dialog.title', tool.text)
 						|| 'Choose Location',
+					trigger: trigger || preview.element,
 					className: 'Places_locations_address_invoke',
 					fullscreen: Q.info.isMobile,
 					content: $('<div />').tool('Places/address', {
