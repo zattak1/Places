@@ -267,7 +267,7 @@
 				var $node = $(this);
 				var $title = $node.children('.Places_locations_node_title');
 				var $previews = $title.children('.Streams_preview_tool')
-					.not('.Streams_related_composer, .Streams_preview_composer');
+					.not('.Streams_related_composer, .Streams_preview_composer, .Streams_related_loading, .Q_working');
 				if ($previews.length <= 1) {
 					return;
 				}
@@ -304,7 +304,7 @@
 
 			$(relatedTool.element)
 			.children('.Streams_preview_tool')
-			.not('.Streams_related_composer, .Streams_preview_composer')
+			.not('.Streams_related_composer, .Streams_preview_composer, .Streams_related_loading, .Q_working')
 			.each(function () {
 				var $preview = $(this);
 				if ($preview.parent().hasClass('Places_locations_node_title')) {
