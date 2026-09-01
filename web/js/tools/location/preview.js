@@ -29,7 +29,10 @@
 			}, function (err, html) {
 				if (err) return;
 
-				Q.replace(tool.element, html);;
+				Q.replace(tool.element, html);
+				// Restore actions after async replace (Streams/preview.actions runs too early)
+				tool.preview.actions();
+				Q.handle(onLoad);
 			});
 		}
 	});

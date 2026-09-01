@@ -1,91 +1,91 @@
 {
-    "LatLng": "( {{1}} lat, {{2}} lat)",
-    "nearby": {
-        "PostcodeLabel": "{{1}} ( {{2}} )",
-        "Title": "trong vòng {{1}}"
-    },
-    "units": {
-        "meter": "mét",
-        "meters": "mét",
-        "kilometer": "km",
-        "kilometers": "km",
-        "km": "km",
-        "mile": "dặm",
-        "miles": "dặm",
-        "mi": "mi",
-        "foot": "chân",
-        "feet": "bàn chân",
-        "inches": "inch"
-    },
-    "location": {
-        "interested": "Tôi quan tâm đến những thứ diễn ra trong vòng {{select}}",
-        "update": "Cập nhật vị trí của tôi",
-        "set": "Đặt vị trí của tôi",
-        "prompt": "{{ClickOrTap}} vào đây<br> thiết lập của bạn<br> vị trí",
-        "myCurrentLocation": "Vị trí hiện tại của tôi",
-        "enterAddress": "Nhập một địa chỉ",
-        "enterPostcode": "Vui lòng nhập mã bưu điện \/ zipcode của bạn",
-        "create": {
-            "action": "Thêm vị trí",
-            "title": "Vị trí mới",
-            "nameYourLocation": "Đặt tên cho vị trí của bạn"
-        },
-        "confirm": {
-            "title": "Lưu vị trí này?",
-            "message": "Bạn có kế hoạch sử dụng lại vị trí này trong tương lai không?",
-            "ok": "Đúng",
-            "cancel": "KHÔNG"
-        },
-        "add": {
-            "title": "Đặt tên cho địa điểm này",
-            "placeholder": "Nhà, Cơ quan, v.v.",
-            "ok": "Cứu"
-        },
-        "dialog": {
-            "title": "Chọn vị trí"
-        }
-    },
-    "areas": {
-        "filterPlaceholder": "Bất kỳ khu vực bên trong vị trí này?",
-        "newArea": "khu vực mới",
-        "promptTitle": "Nhập tên cho khu vực:",
-        "absent": "Vui lòng đặt khu vực",
-        "error": "Lỗi",
-        "exist": "Khu vực đã tồn tại",
-        "addNewArea": "Thêm khu vực mới",
-        "add": "Thêm vào"
-    },
-    "types": {
-        "Places\/locations": {
-            "description": "một bộ sưu tập các địa điểm",
-            "displayType": "Vị trí"
-        },
-        "Places\/location": {
-            "description": "Đại diện cho một tòa nhà, địa điểm, con tàu, công viên, v.v.",
-            "displayType": "Vị trí"
-        },
-        "Places\/area": {
-            "description": "Đại diện cho một khu vực trong một vị trí, chẳng hạn như phòng hoặc dãy phòng",
-            "displayType": "Khu vực"
-        },
-        "Places\/floor": {
-            "description": "Đại diện cho một tầng trong tòa nhà hoặc con tàu",
-            "displayType": "Sàn nhà"
-        },
-        "Places\/column": {
-            "description": "Đại diện cho một cột trong tòa nhà hoặc con tàu",
-            "displayType": "Cột"
-        },
-        "Places\/nearby": {
-            "description": "Danh mục cho những thứ trong một khoảng cách nhất định của geohash",
-            "displayType": "Những nơi gần đó"
-        },
-        "Places\/interest": {
-            "description": "Danh mục cho những thứ trong một khoảng cách nhất định của geohash, phù hợp với sở thích",
-            "displayType": "Địa điểm quan tâm"
-        }
-    },
-    "countries": {
-        "SelectCountry": "Chọn một quốc gia"
-    }
+	"LatLng": "( {{1}} lat, {{2}} lat)",
+	"nearby": {
+		"PostcodeLabel": "{{1}} ( {{2}} )",
+		"Title": "trong v\u00f2ng {{1}}"
+	},
+	"units": {
+		"meter": "m\u00e9t",
+		"meters": "m\u00e9t",
+		"kilometer": "km",
+		"kilometers": "km",
+		"km": "km",
+		"mile": "d\u1eb7m",
+		"miles": "d\u1eb7m",
+		"mi": "mi",
+		"foot": "ch\u00e2n",
+		"feet": "b\u00e0n ch\u00e2n",
+		"inches": "inch"
+	},
+	"location": {
+		"interested": "T\u00f4i quan t\u00e2m \u0111\u1ebfn nh\u1eefng th\u1ee9 di\u1ec5n ra trong v\u00f2ng {{select}}",
+		"update": "C\u1eadp nh\u1eadt v\u1ecb tr\u00ed c\u1ee7a t\u00f4i",
+		"set": "\u0110\u1eb7t v\u1ecb tr\u00ed c\u1ee7a t\u00f4i",
+		"prompt": "{{ClickOrTap}} v\u00e0o \u0111\u00e2y<br> thi\u1ebft l\u1eadp c\u1ee7a b\u1ea1n<br> v\u1ecb tr\u00ed",
+		"myCurrentLocation": "V\u1ecb tr\u00ed hi\u1ec7n t\u1ea1i c\u1ee7a t\u00f4i",
+		"enterAddress": "Nh\u1eadp m\u1ed9t \u0111\u1ecba ch\u1ec9",
+		"enterPostcode": "Vui l\u00f2ng nh\u1eadp m\u00e3 b\u01b0u \u0111i\u1ec7n / zipcode c\u1ee7a b\u1ea1n",
+		"create": {
+			"action": "Th\u00eam v\u1ecb tr\u00ed",
+			"title": "V\u1ecb tr\u00ed m\u1edbi",
+			"nameYourLocation": "\u0110\u1eb7t t\u00ean cho v\u1ecb tr\u00ed c\u1ee7a b\u1ea1n"
+		},
+		"confirm": {
+			"title": "L\u01b0u v\u1ecb tr\u00ed n\u00e0y?",
+			"message": "B\u1ea1n c\u00f3 k\u1ebf ho\u1ea1ch s\u1eed d\u1ee5ng l\u1ea1i v\u1ecb tr\u00ed n\u00e0y trong t\u01b0\u01a1ng lai kh\u00f4ng?",
+			"ok": "\u0110\u00fang",
+			"cancel": "KH\u00d4NG"
+		},
+		"add": {
+			"title": "\u0110\u1eb7t t\u00ean cho \u0111\u1ecba \u0111i\u1ec3m n\u00e0y",
+			"placeholder": "Nh\u00e0, C\u01a1 quan, v.v.",
+			"ok": "C\u1ee9u"
+		},
+		"dialog": {
+			"title": "Ch\u1ecdn v\u1ecb tr\u00ed"
+		}
+	},
+	"areas": {
+		"filterPlaceholder": "B\u1ea5t k\u1ef3 khu v\u1ef1c b\u00ean trong v\u1ecb tr\u00ed n\u00e0y?",
+		"newArea": "khu v\u1ef1c m\u1edbi",
+		"promptTitle": "Nh\u1eadp t\u00ean cho khu v\u1ef1c:",
+		"absent": "Vui l\u00f2ng \u0111\u1eb7t khu v\u1ef1c",
+		"error": "L\u1ed7i",
+		"exist": "Khu v\u1ef1c \u0111\u00e3 t\u1ed3n t\u1ea1i",
+		"addNewArea": "Th\u00eam khu v\u1ef1c m\u1edbi",
+		"add": "Th\u00eam v\u00e0o"
+	},
+	"types": {
+		"Places/locations": {
+			"description": "m\u1ed9t b\u1ed9 s\u01b0u t\u1eadp c\u00e1c \u0111\u1ecba \u0111i\u1ec3m",
+			"displayType": "V\u1ecb tr\u00ed"
+		},
+		"Places/location": {
+			"description": "\u0110\u1ea1i di\u1ec7n cho m\u1ed9t t\u00f2a nh\u00e0, \u0111\u1ecba \u0111i\u1ec3m, con t\u00e0u, c\u00f4ng vi\u00ean, v.v.",
+			"displayType": "V\u1ecb tr\u00ed"
+		},
+		"Places/area": {
+			"description": "\u0110\u1ea1i di\u1ec7n cho m\u1ed9t khu v\u1ef1c trong m\u1ed9t v\u1ecb tr\u00ed, ch\u1eb3ng h\u1ea1n nh\u01b0 ph\u00f2ng ho\u1eb7c d\u00e3y ph\u00f2ng",
+			"displayType": "Khu v\u1ef1c"
+		},
+		"Places/floor": {
+			"description": "\u0110\u1ea1i di\u1ec7n cho m\u1ed9t t\u1ea7ng trong t\u00f2a nh\u00e0 ho\u1eb7c con t\u00e0u",
+			"displayType": "S\u00e0n nh\u00e0"
+		},
+		"Places/column": {
+			"description": "\u0110\u1ea1i di\u1ec7n cho m\u1ed9t c\u1ed9t trong t\u00f2a nh\u00e0 ho\u1eb7c con t\u00e0u",
+			"displayType": "C\u1ed9t"
+		},
+		"Places/nearby": {
+			"description": "Danh m\u1ee5c cho nh\u1eefng th\u1ee9 trong m\u1ed9t kho\u1ea3ng c\u00e1ch nh\u1ea5t \u0111\u1ecbnh c\u1ee7a geohash",
+			"displayType": "Nh\u1eefng n\u01a1i g\u1ea7n \u0111\u00f3"
+		},
+		"Places/interest": {
+			"description": "Danh m\u1ee5c cho nh\u1eefng th\u1ee9 trong m\u1ed9t kho\u1ea3ng c\u00e1ch nh\u1ea5t \u0111\u1ecbnh c\u1ee7a geohash, ph\u00f9 h\u1ee3p v\u1edbi s\u1edf th\u00edch",
+			"displayType": "\u0110\u1ecba \u0111i\u1ec3m quan t\u00e2m"
+		}
+	},
+	"countries": {
+		"SelectCountry": "Ch\u1ecdn m\u1ed9t qu\u1ed1c gia"
+	}
 }

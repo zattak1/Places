@@ -58,6 +58,24 @@
 		"addNewArea": "Add new area",
 		"add": "Add"
 	},
+	"locations": {
+		"newLocation": "Add Location",
+		"newArea": "New area",
+		"newTable": "New table",
+		"addressTitle": "Choose Location",
+		"editAddressTitle": "Edit Location",
+		"areaPrompt": "Enter a name for the area:",
+		"tablePrompt": "Enter a name for the table:",
+		"addArea": "Add new area",
+		"addTable": "Add new table",
+		"add": "Add",
+		"areaAbsent": "Please set area",
+		"tableAbsent": "Please set table",
+		"areaExist": "Area already exists",
+		"tableExist": "Table already exists",
+		"error": "Error",
+		"AreYouSure": "Are you sure?"
+	},
 	"types": {
 		"Places/locations": {
 			"description": "a collection of locations",

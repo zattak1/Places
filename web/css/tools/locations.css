@@ -1,0 +1,100 @@
+/* Places/locations — CSS expandables for location → area → table */
+
+.Places_locations_tool {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+	width: 100%;
+}
+
+.Places_locations_tool .Places_locations_current {
+	padding: 8px 10px;
+	cursor: pointer;
+}
+
+.Places_locations_tool .Places_locations_current.Q_selected {
+	border-radius: 5px;
+}
+
+.Places_locations_tool .Places_locations_related {
+	width: 100%;
+}
+
+.Places_locations_node {
+	position: relative;
+	width: 100%;
+	margin-bottom: 10px;
+}
+
+.Places_locations_node_title {
+	display: flex;
+	align-items: center;
+	width: 100%;
+}
+
+.Places_locations_node_title .Streams_preview_tool {
+	flex: 1;
+	min-width: 0;
+}
+
+.Places_locations_chevron {
+	flex: 0 0 auto;
+	display: inline-block;
+	font-size: 32px;
+	line-height: 1;
+	cursor: pointer;
+	user-select: none;
+	transition: transform 300ms ease;
+	color: inherit;
+	opacity: 0.7;
+}
+
+.Places_locations_node[data-expanded="true"] > .Places_locations_node_title > .Places_locations_chevron {
+	transform: rotate(180deg);
+}
+
+.Places_locations_node > .Places_locations_node_content {
+	display: none;
+	transition: display 300ms ease;
+	margin-left: 40px;
+}
+
+.Places_locations_node[data-expanded="true"] > .Places_locations_node_content {
+	display: block;
+}
+
+/* Hide expand affordances when nesting is off */
+.Places_locations_tool[data-show-areas="false"] .Places_locations_chevron,
+.Places_locations_tool[data-show-tables="false"] .Places_locations_node[data-level="area"] > .Places_locations_node_title > .Places_locations_chevron,
+.Places_locations_tool[data-show-current="false"] .Places_locations_current {
+	display: none;
+}
+
+.Places_locations_address_invoke .Places_address_tool {
+	min-height: 200px;
+	padding: 10px;
+}
+.Places_locations_address_invoke .Places_address_tool .Q_filter_tool,
+.Places_locations_address_invoke .Places_address_tool .Q_filter_tool .Q_filter_input {
+	width: 100%;
+}
+.Places_locations_address_invoke .Places_address_tool .Q_filter_tool .Q_filter_input {
+	height: 40px;
+}
+.Places_locations_address_invoke .Places_address_tool .Q_filter_tool .Q_filter_input::placeholder {
+	opacity: 0.5
+}
+.Places_locations_tool .Places_location_preview_tool {
+	padding: 0;
+}
+.Places_locations_tool .Places_location_preview_tool {
+	padding: 0;
+}
+.Places_locations_tool .Places_location_preview_tool:not(.Streams_preview_composer):not(:last-of-type) {
+	margin-bottom: 10px;
+}
+.Places_locations_tool img.Streams_preview_add,
+.Places_locations_tool img.Streams_preview_icon {
+	width: 40px;
+	height: 40px;
+}

@@ -1,91 +1,91 @@
 {
-    "LatLng": "( {{1}} lat, {{2}} ng)",
-    "nearby": {
-        "PostcodeLabel": "{{1}} ( {{2}} )",
-        "Title": "{{1}} içinde"
-    },
-    "units": {
-        "meter": "metre",
-        "meters": "metre",
-        "kilometer": "kilometre",
-        "kilometers": "kilometre",
-        "km": "km",
-        "mile": "mil",
-        "miles": "mil",
-        "mi": "mi",
-        "foot": "ayak",
-        "feet": "ayak",
-        "inches": "inç"
-    },
-    "location": {
-        "interested": "{{select}} saat içinde gerçekleşen şeylerle ilgileniyorum.",
-        "update": "Konumumu Güncelle",
-        "set": "Konumumu Ayarla",
-        "prompt": "{{ClickOrTap}} buraya<br> senin ayarla<br> konum",
-        "myCurrentLocation": "şu anki konumum",
-        "enterAddress": "Bir adres girin",
-        "enterPostcode": "Lütfen posta kodunuzu \/ posta kodunuzu girin",
-        "create": {
-            "action": "Konum ekle",
-            "title": "Yeni konum",
-            "nameYourLocation": "Konumunuzu adlandırın"
-        },
-        "confirm": {
-            "title": "Bu konum kaydedilsin mi?",
-            "message": "Gelecekte bu konumu tekrar kullanmayı planlıyor musunuz?",
-            "ok": "Evet",
-            "cancel": "HAYIR"
-        },
-        "add": {
-            "title": "Bu konumu adlandırın",
-            "placeholder": "Ev, İş vb.",
-            "ok": "Kaydetmek"
-        },
-        "dialog": {
-            "title": "Konum seç"
-        }
-    },
-    "areas": {
-        "filterPlaceholder": "Bu konumun içinde herhangi bir alan var mı?",
-        "newArea": "Yeni alan",
-        "promptTitle": "Alan için bir ad girin:",
-        "absent": "Lütfen alanı ayarlayın",
-        "error": "Hata",
-        "exist": "Alan zaten var",
-        "addNewArea": "Yeni alan ekle",
-        "add": "Eklemek"
-    },
-    "types": {
-        "Places\/locations": {
-            "description": "bir dizi konum",
-            "displayType": "konumlar"
-        },
-        "Places\/location": {
-            "description": "Bir binayı, mekanı, gemiyi, parkı vb. temsil eder.",
-            "displayType": "Konum"
-        },
-        "Places\/area": {
-            "description": "Oda veya süit gibi bir konumdaki bir alanı temsil eder",
-            "displayType": "Alan"
-        },
-        "Places\/floor": {
-            "description": "Bir bina veya gemideki bir katı temsil eder",
-            "displayType": "Zemin"
-        },
-        "Places\/column": {
-            "description": "Bir bina veya gemideki bir sütunu temsil eder",
-            "displayType": "Kolon"
-        },
-        "Places\/nearby": {
-            "description": "Geohash&#39;ın belirli bir mesafesindeki şeyler için kategori",
-            "displayType": "Yakın yerler"
-        },
-        "Places\/interest": {
-            "description": "Bir ilgi alanıyla eşleşen, bir geohash&#39;ın belirli bir mesafesindeki şeyler için kategori",
-            "displayType": "ilgi alanları"
-        }
-    },
-    "countries": {
-        "SelectCountry": "Bir ülke seçin"
-    }
+	"LatLng": "( {{1}} lat, {{2}} ng)",
+	"nearby": {
+		"PostcodeLabel": "{{1}} ( {{2}} )",
+		"Title": "{{1}} i\u00e7inde"
+	},
+	"units": {
+		"meter": "metre",
+		"meters": "metre",
+		"kilometer": "kilometre",
+		"kilometers": "kilometre",
+		"km": "km",
+		"mile": "mil",
+		"miles": "mil",
+		"mi": "mi",
+		"foot": "ayak",
+		"feet": "ayak",
+		"inches": "in\u00e7"
+	},
+	"location": {
+		"interested": "{{select}} saat i\u00e7inde ger\u00e7ekle\u015fen \u015feylerle ilgileniyorum.",
+		"update": "Konumumu G\u00fcncelle",
+		"set": "Konumumu Ayarla",
+		"prompt": "{{ClickOrTap}} buraya<br> senin ayarla<br> konum",
+		"myCurrentLocation": "\u015fu anki konumum",
+		"enterAddress": "Bir adres girin",
+		"enterPostcode": "L\u00fctfen posta kodunuzu / posta kodunuzu girin",
+		"create": {
+			"action": "Konum ekle",
+			"title": "Yeni konum",
+			"nameYourLocation": "Konumunuzu adland\u0131r\u0131n"
+		},
+		"confirm": {
+			"title": "Bu konum kaydedilsin mi?",
+			"message": "Gelecekte bu konumu tekrar kullanmay\u0131 planl\u0131yor musunuz?",
+			"ok": "Evet",
+			"cancel": "HAYIR"
+		},
+		"add": {
+			"title": "Bu konumu adland\u0131r\u0131n",
+			"placeholder": "Ev, \u0130\u015f vb.",
+			"ok": "Kaydetmek"
+		},
+		"dialog": {
+			"title": "Konum se\u00e7"
+		}
+	},
+	"areas": {
+		"filterPlaceholder": "Bu konumun i\u00e7inde herhangi bir alan var m\u0131?",
+		"newArea": "Yeni alan",
+		"promptTitle": "Alan i\u00e7in bir ad girin:",
+		"absent": "L\u00fctfen alan\u0131 ayarlay\u0131n",
+		"error": "Hata",
+		"exist": "Alan zaten var",
+		"addNewArea": "Yeni alan ekle",
+		"add": "Eklemek"
+	},
+	"types": {
+		"Places/locations": {
+			"description": "bir dizi konum",
+			"displayType": "konumlar"
+		},
+		"Places/location": {
+			"description": "Bir binay\u0131, mekan\u0131, gemiyi, park\u0131 vb. temsil eder.",
+			"displayType": "Konum"
+		},
+		"Places/area": {
+			"description": "Oda veya s\u00fcit gibi bir konumdaki bir alan\u0131 temsil eder",
+			"displayType": "Alan"
+		},
+		"Places/floor": {
+			"description": "Bir bina veya gemideki bir kat\u0131 temsil eder",
+			"displayType": "Zemin"
+		},
+		"Places/column": {
+			"description": "Bir bina veya gemideki bir s\u00fctunu temsil eder",
+			"displayType": "Kolon"
+		},
+		"Places/nearby": {
+			"description": "Geohash&#39;\u0131n belirli bir mesafesindeki \u015feyler i\u00e7in kategori",
+			"displayType": "Yak\u0131n yerler"
+		},
+		"Places/interest": {
+			"description": "Bir ilgi alan\u0131yla e\u015fle\u015fen, bir geohash&#39;\u0131n belirli bir mesafesindeki \u015feyler i\u00e7in kategori",
+			"displayType": "ilgi alanlar\u0131"
+		}
+	},
+	"countries": {
+		"SelectCountry": "Bir \u00fclke se\u00e7in"
+	}
 }

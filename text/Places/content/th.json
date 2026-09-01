@@ -1,91 +1,91 @@
 {
-    "LatLng": "( {{1}} ละติจูด {{2}} ลิตร)",
-    "nearby": {
-        "PostcodeLabel": "{{1}} ( {{2}} )",
-        "Title": "ภายใน {{1}}"
-    },
-    "units": {
-        "meter": "เมตร",
-        "meters": "เมตร",
-        "kilometer": "กิโลเมตร",
-        "kilometers": "กิโลเมตร",
-        "km": "กม",
-        "mile": "ไมล์",
-        "miles": "ไมล์",
-        "mi": "ไมล์",
-        "foot": "เท้า",
-        "feet": "เท้า",
-        "inches": "นิ้ว"
-    },
-    "location": {
-        "interested": "ฉันสนใจสิ่งต่าง ๆ ที่เกิดขึ้นภายใน {{select}} ของ",
-        "update": "อัปเดตตำแหน่งของฉัน",
-        "set": "ตั้งค่าตำแหน่งของฉัน",
-        "prompt": "{{ClickOrTap}} ที่นี่เพื่อ<br> ตั้งค่าของคุณ<br> ที่ตั้ง",
-        "myCurrentLocation": "ตำแหน่งปัจจุบันของฉัน",
-        "enterAddress": "ป้อนที่อยู่",
-        "enterPostcode": "กรุณาใส่รหัสไปรษณีย์\/รหัสไปรษณีย์ของคุณ",
-        "create": {
-            "action": "เพิ่มสถานที่",
-            "title": "สถานที่ใหม่",
-            "nameYourLocation": "ตั้งชื่อตำแหน่งของคุณ"
-        },
-        "confirm": {
-            "title": "บันทึกสถานที่นี้หรือไม่",
-            "message": "คุณวางแผนที่จะใช้สถานที่นี้อีกในอนาคตหรือไม่?",
-            "ok": "ใช่",
-            "cancel": "เลขที่"
-        },
-        "add": {
-            "title": "ตั้งชื่อสถานที่นี้",
-            "placeholder": "บ้าน ที่ทำงาน ฯลฯ",
-            "ok": "บันทึก"
-        },
-        "dialog": {
-            "title": "เลือกสถานที่"
-        }
-    },
-    "areas": {
-        "filterPlaceholder": "พื้นที่ใดในที่ตั้งนี้",
-        "newArea": "พื้นที่ใหม่",
-        "promptTitle": "ป้อนชื่อสำหรับพื้นที่:",
-        "absent": "กรุณากำหนดพื้นที่",
-        "error": "ข้อผิดพลาด",
-        "exist": "พื้นที่มีอยู่แล้ว",
-        "addNewArea": "เพิ่มพื้นที่ใหม่",
-        "add": "เพิ่ม"
-    },
-    "types": {
-        "Places\/locations": {
-            "description": "รวบรวมสถานที่ต่างๆ",
-            "displayType": "สถานที่"
-        },
-        "Places\/location": {
-            "description": "แสดงถึงอาคาร สถานที่ เรือ สวนสาธารณะ ฯลฯ",
-            "displayType": "ที่ตั้ง"
-        },
-        "Places\/area": {
-            "description": "แสดงพื้นที่ภายในสถานที่ เช่น ห้องพักหรือห้องชุด",
-            "displayType": "พื้นที่"
-        },
-        "Places\/floor": {
-            "description": "หมายถึงพื้นในอาคารหรือเรือ",
-            "displayType": "พื้น"
-        },
-        "Places\/column": {
-            "description": "แสดงถึงเสาในอาคารหรือเรือ",
-            "displayType": "คอลัมน์"
-        },
-        "Places\/nearby": {
-            "description": "หมวดหมู่สำหรับสิ่งที่อยู่ภายในระยะที่กำหนดของ geohash",
-            "displayType": "สถานที่ใกล้เคียง"
-        },
-        "Places\/interest": {
-            "description": "หมวดหมู่สำหรับสิ่งที่อยู่ภายในระยะหนึ่งจาก geohash ซึ่งตรงกับความสนใจ",
-            "displayType": "สถานที่น่าสนใจ"
-        }
-    },
-    "countries": {
-        "SelectCountry": "เลือกประเทศ"
-    }
+	"LatLng": "( {{1}} \u0e25\u0e30\u0e15\u0e34\u0e08\u0e39\u0e14 {{2}} \u0e25\u0e34\u0e15\u0e23)",
+	"nearby": {
+		"PostcodeLabel": "{{1}} ( {{2}} )",
+		"Title": "\u0e20\u0e32\u0e22\u0e43\u0e19 {{1}}"
+	},
+	"units": {
+		"meter": "\u0e40\u0e21\u0e15\u0e23",
+		"meters": "\u0e40\u0e21\u0e15\u0e23",
+		"kilometer": "\u0e01\u0e34\u0e42\u0e25\u0e40\u0e21\u0e15\u0e23",
+		"kilometers": "\u0e01\u0e34\u0e42\u0e25\u0e40\u0e21\u0e15\u0e23",
+		"km": "\u0e01\u0e21",
+		"mile": "\u0e44\u0e21\u0e25\u0e4c",
+		"miles": "\u0e44\u0e21\u0e25\u0e4c",
+		"mi": "\u0e44\u0e21\u0e25\u0e4c",
+		"foot": "\u0e40\u0e17\u0e49\u0e32",
+		"feet": "\u0e40\u0e17\u0e49\u0e32",
+		"inches": "\u0e19\u0e34\u0e49\u0e27"
+	},
+	"location": {
+		"interested": "\u0e09\u0e31\u0e19\u0e2a\u0e19\u0e43\u0e08\u0e2a\u0e34\u0e48\u0e07\u0e15\u0e48\u0e32\u0e07 \u0e46 \u0e17\u0e35\u0e48\u0e40\u0e01\u0e34\u0e14\u0e02\u0e36\u0e49\u0e19\u0e20\u0e32\u0e22\u0e43\u0e19 {{select}} \u0e02\u0e2d\u0e07",
+		"update": "\u0e2d\u0e31\u0e1b\u0e40\u0e14\u0e15\u0e15\u0e33\u0e41\u0e2b\u0e19\u0e48\u0e07\u0e02\u0e2d\u0e07\u0e09\u0e31\u0e19",
+		"set": "\u0e15\u0e31\u0e49\u0e07\u0e04\u0e48\u0e32\u0e15\u0e33\u0e41\u0e2b\u0e19\u0e48\u0e07\u0e02\u0e2d\u0e07\u0e09\u0e31\u0e19",
+		"prompt": "{{ClickOrTap}} \u0e17\u0e35\u0e48\u0e19\u0e35\u0e48\u0e40\u0e1e\u0e37\u0e48\u0e2d<br> \u0e15\u0e31\u0e49\u0e07\u0e04\u0e48\u0e32\u0e02\u0e2d\u0e07\u0e04\u0e38\u0e13<br> \u0e17\u0e35\u0e48\u0e15\u0e31\u0e49\u0e07",
+		"myCurrentLocation": "\u0e15\u0e33\u0e41\u0e2b\u0e19\u0e48\u0e07\u0e1b\u0e31\u0e08\u0e08\u0e38\u0e1a\u0e31\u0e19\u0e02\u0e2d\u0e07\u0e09\u0e31\u0e19",
+		"enterAddress": "\u0e1b\u0e49\u0e2d\u0e19\u0e17\u0e35\u0e48\u0e2d\u0e22\u0e39\u0e48",
+		"enterPostcode": "\u0e01\u0e23\u0e38\u0e13\u0e32\u0e43\u0e2a\u0e48\u0e23\u0e2b\u0e31\u0e2a\u0e44\u0e1b\u0e23\u0e29\u0e13\u0e35\u0e22\u0e4c/\u0e23\u0e2b\u0e31\u0e2a\u0e44\u0e1b\u0e23\u0e29\u0e13\u0e35\u0e22\u0e4c\u0e02\u0e2d\u0e07\u0e04\u0e38\u0e13",
+		"create": {
+			"action": "\u0e40\u0e1e\u0e34\u0e48\u0e21\u0e2a\u0e16\u0e32\u0e19\u0e17\u0e35\u0e48",
+			"title": "\u0e2a\u0e16\u0e32\u0e19\u0e17\u0e35\u0e48\u0e43\u0e2b\u0e21\u0e48",
+			"nameYourLocation": "\u0e15\u0e31\u0e49\u0e07\u0e0a\u0e37\u0e48\u0e2d\u0e15\u0e33\u0e41\u0e2b\u0e19\u0e48\u0e07\u0e02\u0e2d\u0e07\u0e04\u0e38\u0e13"
+		},
+		"confirm": {
+			"title": "\u0e1a\u0e31\u0e19\u0e17\u0e36\u0e01\u0e2a\u0e16\u0e32\u0e19\u0e17\u0e35\u0e48\u0e19\u0e35\u0e49\u0e2b\u0e23\u0e37\u0e2d\u0e44\u0e21\u0e48",
+			"message": "\u0e04\u0e38\u0e13\u0e27\u0e32\u0e07\u0e41\u0e1c\u0e19\u0e17\u0e35\u0e48\u0e08\u0e30\u0e43\u0e0a\u0e49\u0e2a\u0e16\u0e32\u0e19\u0e17\u0e35\u0e48\u0e19\u0e35\u0e49\u0e2d\u0e35\u0e01\u0e43\u0e19\u0e2d\u0e19\u0e32\u0e04\u0e15\u0e2b\u0e23\u0e37\u0e2d\u0e44\u0e21\u0e48?",
+			"ok": "\u0e43\u0e0a\u0e48",
+			"cancel": "\u0e40\u0e25\u0e02\u0e17\u0e35\u0e48"
+		},
+		"add": {
+			"title": "\u0e15\u0e31\u0e49\u0e07\u0e0a\u0e37\u0e48\u0e2d\u0e2a\u0e16\u0e32\u0e19\u0e17\u0e35\u0e48\u0e19\u0e35\u0e49",
+			"placeholder": "\u0e1a\u0e49\u0e32\u0e19 \u0e17\u0e35\u0e48\u0e17\u0e33\u0e07\u0e32\u0e19 \u0e2f\u0e25\u0e2f",
+			"ok": "\u0e1a\u0e31\u0e19\u0e17\u0e36\u0e01"
+		},
+		"dialog": {
+			"title": "\u0e40\u0e25\u0e37\u0e2d\u0e01\u0e2a\u0e16\u0e32\u0e19\u0e17\u0e35\u0e48"
+		}
+	},
+	"areas": {
+		"filterPlaceholder": "\u0e1e\u0e37\u0e49\u0e19\u0e17\u0e35\u0e48\u0e43\u0e14\u0e43\u0e19\u0e17\u0e35\u0e48\u0e15\u0e31\u0e49\u0e07\u0e19\u0e35\u0e49",
+		"newArea": "\u0e1e\u0e37\u0e49\u0e19\u0e17\u0e35\u0e48\u0e43\u0e2b\u0e21\u0e48",
+		"promptTitle": "\u0e1b\u0e49\u0e2d\u0e19\u0e0a\u0e37\u0e48\u0e2d\u0e2a\u0e33\u0e2b\u0e23\u0e31\u0e1a\u0e1e\u0e37\u0e49\u0e19\u0e17\u0e35\u0e48:",
+		"absent": "\u0e01\u0e23\u0e38\u0e13\u0e32\u0e01\u0e33\u0e2b\u0e19\u0e14\u0e1e\u0e37\u0e49\u0e19\u0e17\u0e35\u0e48",
+		"error": "\u0e02\u0e49\u0e2d\u0e1c\u0e34\u0e14\u0e1e\u0e25\u0e32\u0e14",
+		"exist": "\u0e1e\u0e37\u0e49\u0e19\u0e17\u0e35\u0e48\u0e21\u0e35\u0e2d\u0e22\u0e39\u0e48\u0e41\u0e25\u0e49\u0e27",
+		"addNewArea": "\u0e40\u0e1e\u0e34\u0e48\u0e21\u0e1e\u0e37\u0e49\u0e19\u0e17\u0e35\u0e48\u0e43\u0e2b\u0e21\u0e48",
+		"add": "\u0e40\u0e1e\u0e34\u0e48\u0e21"
+	},
+	"types": {
+		"Places/locations": {
+			"description": "\u0e23\u0e27\u0e1a\u0e23\u0e27\u0e21\u0e2a\u0e16\u0e32\u0e19\u0e17\u0e35\u0e48\u0e15\u0e48\u0e32\u0e07\u0e46",
+			"displayType": "\u0e2a\u0e16\u0e32\u0e19\u0e17\u0e35\u0e48"
+		},
+		"Places/location": {
+			"description": "\u0e41\u0e2a\u0e14\u0e07\u0e16\u0e36\u0e07\u0e2d\u0e32\u0e04\u0e32\u0e23 \u0e2a\u0e16\u0e32\u0e19\u0e17\u0e35\u0e48 \u0e40\u0e23\u0e37\u0e2d \u0e2a\u0e27\u0e19\u0e2a\u0e32\u0e18\u0e32\u0e23\u0e13\u0e30 \u0e2f\u0e25\u0e2f",
+			"displayType": "\u0e17\u0e35\u0e48\u0e15\u0e31\u0e49\u0e07"
+		},
+		"Places/area": {
+			"description": "\u0e41\u0e2a\u0e14\u0e07\u0e1e\u0e37\u0e49\u0e19\u0e17\u0e35\u0e48\u0e20\u0e32\u0e22\u0e43\u0e19\u0e2a\u0e16\u0e32\u0e19\u0e17\u0e35\u0e48 \u0e40\u0e0a\u0e48\u0e19 \u0e2b\u0e49\u0e2d\u0e07\u0e1e\u0e31\u0e01\u0e2b\u0e23\u0e37\u0e2d\u0e2b\u0e49\u0e2d\u0e07\u0e0a\u0e38\u0e14",
+			"displayType": "\u0e1e\u0e37\u0e49\u0e19\u0e17\u0e35\u0e48"
+		},
+		"Places/floor": {
+			"description": "\u0e2b\u0e21\u0e32\u0e22\u0e16\u0e36\u0e07\u0e1e\u0e37\u0e49\u0e19\u0e43\u0e19\u0e2d\u0e32\u0e04\u0e32\u0e23\u0e2b\u0e23\u0e37\u0e2d\u0e40\u0e23\u0e37\u0e2d",
+			"displayType": "\u0e1e\u0e37\u0e49\u0e19"
+		},
+		"Places/column": {
+			"description": "\u0e41\u0e2a\u0e14\u0e07\u0e16\u0e36\u0e07\u0e40\u0e2a\u0e32\u0e43\u0e19\u0e2d\u0e32\u0e04\u0e32\u0e23\u0e2b\u0e23\u0e37\u0e2d\u0e40\u0e23\u0e37\u0e2d",
+			"displayType": "\u0e04\u0e2d\u0e25\u0e31\u0e21\u0e19\u0e4c"
+		},
+		"Places/nearby": {
+			"description": "\u0e2b\u0e21\u0e27\u0e14\u0e2b\u0e21\u0e39\u0e48\u0e2a\u0e33\u0e2b\u0e23\u0e31\u0e1a\u0e2a\u0e34\u0e48\u0e07\u0e17\u0e35\u0e48\u0e2d\u0e22\u0e39\u0e48\u0e20\u0e32\u0e22\u0e43\u0e19\u0e23\u0e30\u0e22\u0e30\u0e17\u0e35\u0e48\u0e01\u0e33\u0e2b\u0e19\u0e14\u0e02\u0e2d\u0e07 geohash",
+			"displayType": "\u0e2a\u0e16\u0e32\u0e19\u0e17\u0e35\u0e48\u0e43\u0e01\u0e25\u0e49\u0e40\u0e04\u0e35\u0e22\u0e07"
+		},
+		"Places/interest": {
+			"description": "\u0e2b\u0e21\u0e27\u0e14\u0e2b\u0e21\u0e39\u0e48\u0e2a\u0e33\u0e2b\u0e23\u0e31\u0e1a\u0e2a\u0e34\u0e48\u0e07\u0e17\u0e35\u0e48\u0e2d\u0e22\u0e39\u0e48\u0e20\u0e32\u0e22\u0e43\u0e19\u0e23\u0e30\u0e22\u0e30\u0e2b\u0e19\u0e36\u0e48\u0e07\u0e08\u0e32\u0e01 geohash \u0e0b\u0e36\u0e48\u0e07\u0e15\u0e23\u0e07\u0e01\u0e31\u0e1a\u0e04\u0e27\u0e32\u0e21\u0e2a\u0e19\u0e43\u0e08",
+			"displayType": "\u0e2a\u0e16\u0e32\u0e19\u0e17\u0e35\u0e48\u0e19\u0e48\u0e32\u0e2a\u0e19\u0e43\u0e08"
+		}
+	},
+	"countries": {
+		"SelectCountry": "\u0e40\u0e25\u0e37\u0e2d\u0e01\u0e1b\u0e23\u0e30\u0e40\u0e17\u0e28"
+	}
 }

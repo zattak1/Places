@@ -785,6 +785,10 @@ Q.Tool.define({
 	"Places/user/location":    "{{Places}}/js/tools/user/location.js",
 	"Places/location":         "{{Places}}/js/tools/location.js",
 	"Places/location/preview": "{{Places}}/js/tools/location/preview.js",
+	"Places/locations": {
+		js:  "{{Places}}/js/tools/locations.js",
+		css: ["{{Places}}/css/tools/locations.css", "{{Places}}/css/icons/icons.css"]
+	},
 	"Places/areas":            "{{Places}}/js/tools/areas.js",
 	"Places/directions": {
 		js:  "{{Places}}/js/tools/directions.js",
