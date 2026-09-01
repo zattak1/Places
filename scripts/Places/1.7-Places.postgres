@@ -1,0 +1,142 @@
+-- Places plugin — flattened POSTGRES DDL
+-- {{prefix}} is substituted by Qbix at install time.
+
+CREATE TABLE IF NOT EXISTS {{prefix}}autocomplete (
+    query varchar(127) NOT NULL,
+    types varchar(31) NOT NULL,
+    latitude DOUBLE PRECISION NOT NULL,
+    longitude DOUBLE PRECISION NOT NULL,
+    miles DOUBLE PRECISION NOT NULL,
+    insertedTime timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updatedTime timestamp NULL DEFAULT NULL,
+    results text NOT NULL,
+    PRIMARY KEY (query,types,latitude,longitude,miles)
+);
+
+CREATE TABLE IF NOT EXISTS {{prefix}}city (
+    geonameId INT NOT NULL,
+    countryCode VARCHAR(2) NOT NULL,
+    normalizedName VARCHAR(180) NOT NULL,
+    englishName VARCHAR(180) NOT NULL,
+    localName VARCHAR(180) NOT NULL,
+    stateName VARCHAR(100) DEFAULT NULL,
+    stateCode VARCHAR(20) DEFAULT NULL,
+    regionName VARCHAR(100) DEFAULT NULL,
+    regionCode VARCHAR(20) DEFAULT NULL,
+    latitude DOUBLE PRECISION NOT NULL,
+    longitude DOUBLE PRECISION NOT NULL,
+    geohash VARCHAR(31) NOT NULL,
+    timeZone VARCHAR(40) DEFAULT NULL,
+    population INT DEFAULT NULL,
+    featureCode VARCHAR(10) DEFAULT NULL,
+    PRIMARY KEY (geonameId)
+);
+
+CREATE TABLE IF NOT EXISTS {{prefix}}country (
+    countryCode VARCHAR(2) NOT NULL,
+    countryCode3 VARCHAR(3) DEFAULT NULL,
+    geonameId INT DEFAULT NULL,
+    numericCode INT DEFAULT NULL,
+    phoneCode VARCHAR(20) DEFAULT NULL,
+    normalizedName VARCHAR(180) DEFAULT '',
+    englishName VARCHAR(180) DEFAULT '',
+    localName VARCHAR(180) DEFAULT '',
+    emojiFlag VARCHAR(8) DEFAULT NULL,
+    area BIGINT DEFAULT NULL,
+    population BIGINT DEFAULT NULL,
+    continent VARCHAR(2) DEFAULT NULL,
+    currencyCode VARCHAR(3) DEFAULT NULL,
+    currencyName VARCHAR(64) DEFAULT NULL,
+    PRIMARY KEY (countryCode)
+);
+
+CREATE TABLE IF NOT EXISTS {{prefix}}district (
+    geonameId INT NOT NULL,
+    countryCode VARCHAR(2) NOT NULL,
+    regionCode VARCHAR(20) NOT NULL,
+    districtCode VARCHAR(40) NOT NULL,
+    englishName VARCHAR(180) NOT NULL,
+    localName VARCHAR(180) DEFAULT NULL,
+    PRIMARY KEY (geonameId),
+    UNIQUE (countryCode, regionCode, districtCode)
+);
+
+CREATE TABLE IF NOT EXISTS {{prefix}}hierarchy (
+    parentGeonameId int NOT NULL,
+    childGeonameId int NOT NULL,
+    relationType SMALLINT NOT NULL,
+    parentType TEXT DEFAULT NULL,
+    childType TEXT DEFAULT NULL,
+    PRIMARY KEY (parentGeonameId,childGeonameId)
+);
+
+CREATE TABLE IF NOT EXISTS {{prefix}}ipv4 (
+    ipMin INTEGER NOT NULL,
+    ipMax INTEGER NOT NULL,
+    geonameId INT NULL,
+    countryCode VARCHAR(2) NULL,
+    registeredGeonameId INT NULL,
+    representedGeonameId INT NULL,
+    isAnonymousProxy SMALLINT NOT NULL DEFAULT 0,
+    isSatelliteProvider SMALLINT NOT NULL DEFAULT 0,
+    postcode VARCHAR(20) NULL,
+    latitude DOUBLE PRECISION NULL,
+    longitude DOUBLE PRECISION NULL,
+    accuracy INT NULL,
+    isAnycast SMALLINT NOT NULL DEFAULT 0,
+    PRIMARY KEY (ipMin, ipMax)
+);
+
+CREATE TABLE IF NOT EXISTS {{prefix}}ipv6 (
+    ipMin BYTEA NOT NULL,
+    ipMax BYTEA NOT NULL,
+    geonameId INT NULL,
+    countryCode VARCHAR(2) NULL,
+    registeredGeonameId INT NULL,
+    representedGeonameId INT NULL,
+    isAnonymousProxy SMALLINT NOT NULL DEFAULT 0,
+    isSatelliteProvider SMALLINT NOT NULL DEFAULT 0,
+    postcode VARCHAR(20) NULL,
+    latitude DOUBLE PRECISION NULL,
+    longitude DOUBLE PRECISION NULL,
+    accuracy INT NULL,
+    isAnycast SMALLINT NOT NULL DEFAULT 0,
+    PRIMARY KEY (ipMin, ipMax)
+);
+
+CREATE TABLE IF NOT EXISTS {{prefix}}location (
+    geohash varchar(31) NOT NULL,
+    publisherId BYTEA NOT NULL,
+    streamName BYTEA NOT NULL,
+    insertedTime timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS {{prefix}}postcode (
+    countryCode varchar(2) NOT NULL,
+    postcode varchar(10) NOT NULL,
+    placeName varchar(180) NOT NULL,
+    stateName varchar(100) NOT NULL,
+    state varchar(20) NOT NULL,
+    regionName varchar(100) NOT NULL,
+    region varchar(20) NOT NULL,
+    community varchar(100) NOT NULL,
+    latitude DOUBLE PRECISION NOT NULL,
+    longitude DOUBLE PRECISION NOT NULL,
+    accuracy INTEGER NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS {{prefix}}region (
+    geonameId INT NOT NULL,
+    countryCode VARCHAR(2) NOT NULL,
+    regionCode VARCHAR(20) NOT NULL,
+    englishName VARCHAR(180) NOT NULL,
+    localName VARCHAR(180) DEFAULT NULL,
+    PRIMARY KEY (geonameId),
+    UNIQUE (countryCode, regionCode)
+);
+
+-- Indexes
+
+
+-- Additional indexes
+CREATE INDEX IF NOT EXISTS idx_geohash ON {{prefix}}location (geohash);

@@ -1,0 +1,147 @@
+-- Places plugin — flattened SQLITE DDL
+-- {{prefix}} is substituted by Qbix at install time.
+
+CREATE TABLE IF NOT EXISTS {{prefix}}autocomplete (
+    query TEXT DEFAULT '',
+    types TEXT DEFAULT '',
+    latitude REAL NOT NULL,
+    longitude REAL NOT NULL,
+    miles REAL NOT NULL,
+    insertedTime TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updatedTime TEXT NULL DEFAULT NULL,
+    results text NOT NULL,
+    meters REAL DEFAULT NULL,
+    PRIMARY KEY (query,types,latitude,longitude,miles)
+);
+
+CREATE TABLE IF NOT EXISTS {{prefix}}city (
+    geonameId INT NOT NULL,
+    countryCode TEXT DEFAULT '',
+    normalizedName TEXT DEFAULT '',
+    englishName TEXT DEFAULT '',
+    localName TEXT DEFAULT '',
+    stateName TEXT DEFAULT NULL,
+    stateCode TEXT DEFAULT NULL,
+    regionName TEXT DEFAULT NULL,
+    regionCode TEXT DEFAULT NULL,
+    latitude REAL NOT NULL,
+    longitude REAL NOT NULL,
+    geohash TEXT DEFAULT '',
+    timeZone TEXT DEFAULT NULL,
+    population INT DEFAULT NULL,
+    featureCode TEXT DEFAULT NULL,
+    regionGeonameId INTEGER DEFAULT NULL,
+    districtGeonameId INTEGER DEFAULT NULL,
+    PRIMARY KEY (geonameId)
+);
+
+CREATE TABLE {{prefix}}country (
+    countryCode TEXT DEFAULT '',
+    countryCode3 TEXT DEFAULT NULL,
+    geonameId INT DEFAULT NULL,
+    numericCode INT DEFAULT NULL,
+    phoneCode TEXT DEFAULT NULL,
+    normalizedName TEXT DEFAULT "",
+    englishName TEXT DEFAULT "",
+    localName TEXT DEFAULT "",
+    emojiFlag TEXT DEFAULT NULL,
+    area INTEGER DEFAULT NULL,
+    population INTEGER DEFAULT NULL,
+    continent TEXT DEFAULT NULL,
+    currencyCode TEXT DEFAULT NULL,
+    currencyName TEXT DEFAULT NULL,
+    PRIMARY KEY (countryCode)
+);
+
+CREATE TABLE {{prefix}}district (
+    geonameId INT NOT NULL,
+    countryCode TEXT DEFAULT '',
+    regionCode TEXT DEFAULT '',
+    districtCode TEXT DEFAULT '',
+    englishName TEXT DEFAULT '',
+    localName TEXT DEFAULT NULL,
+    PRIMARY KEY (geonameId),
+    UNIQUE (countryCode, regionCode, districtCode)
+);
+
+CREATE TABLE {{prefix}}hierarchy (
+    parentGeonameId int NOT NULL,
+    childGeonameId int NOT NULL,
+    relationType tinyint NOT NULL,
+    parentType TEXT DEFAULT NULL,
+    childType TEXT DEFAULT NULL,
+    PRIMARY KEY (parentGeonameId,childGeonameId)
+);
+
+CREATE TABLE IF NOT EXISTS {{prefix}}ipv4 (
+    ipMin INTEGER NOT NULL DEFAULT 0,
+    ipMax INTEGER NOT NULL DEFAULT 0,
+    geonameId INT NULL,
+    countryCode TEXT NULL,
+    registeredGeonameId INT NULL,
+    representedGeonameId INT NULL,
+    isAnonymousProxy INTEGER NOT NULL DEFAULT 0,
+    isSatelliteProvider INTEGER NOT NULL DEFAULT 0,
+    postcode TEXT NULL,
+    latitude REAL NULL,
+    longitude REAL NULL,
+    accuracy INT NULL,
+    isAnycast INTEGER NOT NULL DEFAULT 0,
+    PRIMARY KEY (ipMin, ipMax)
+);
+
+CREATE TABLE IF NOT EXISTS {{prefix}}ipv6 (
+    ipMin TEXT DEFAULT '',
+    ipMax TEXT DEFAULT '',
+    geonameId INT NULL,
+    countryCode TEXT NULL,
+    registeredGeonameId INT NULL,
+    representedGeonameId INT NULL,
+    isAnonymousProxy INTEGER NOT NULL DEFAULT 0,
+    isSatelliteProvider INTEGER NOT NULL DEFAULT 0,
+    postcode TEXT NULL,
+    latitude REAL NULL,
+    longitude REAL NULL,
+    accuracy INT NULL,
+    isAnycast INTEGER NOT NULL DEFAULT 0,
+    PRIMARY KEY (ipMin, ipMax)
+);
+
+CREATE TABLE IF NOT EXISTS {{prefix}}location (
+    geohash TEXT DEFAULT '',
+    publisherId TEXT DEFAULT '',
+    streamName TEXT DEFAULT '',
+    insertedTime TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS {{prefix}}postcode (
+    countryCode TEXT DEFAULT '',
+    postcode TEXT DEFAULT '',
+    placeName TEXT DEFAULT '',
+    stateName TEXT DEFAULT '',
+    state TEXT DEFAULT '',
+    regionName TEXT DEFAULT '',
+    region TEXT DEFAULT '',
+    community TEXT DEFAULT '',
+    latitude REAL NOT NULL,
+    longitude REAL NOT NULL,
+    accuracy INTEGER NOT NULL,
+    geonameId INTEGER DEFAULT NULL,
+    geohash TEXT DEFAULT NULL,
+    PRIMARY KEY (countryCode, postcode)
+);
+
+CREATE TABLE {{prefix}}region (
+    geonameId INT NOT NULL,
+    countryCode TEXT DEFAULT '',
+    regionCode TEXT DEFAULT '',
+    englishName TEXT DEFAULT '',
+    localName TEXT DEFAULT NULL,
+    PRIMARY KEY (geonameId),
+    UNIQUE (countryCode, regionCode)
+);
+
+-- Indexes
+
+
+-- Additional indexes
