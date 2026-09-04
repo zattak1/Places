@@ -1,0 +1,19 @@
+/**
+ * Address unit cache for Places plugin
+ * Stores unit numbers looked up from Loqate, NYC open data, or user corrections
+ */
+
+CREATE TABLE IF NOT EXISTS `{{prefix}}address_unit` (
+  `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `address` VARCHAR(500) NOT NULL COMMENT 'Normalized building address',
+  `unit` VARCHAR(31) NOT NULL COMMENT 'Unit/apartment number',
+  `floor` INT NULL COMMENT 'Parsed floor number',
+  `source` ENUM('loqate','assessment_roll','generated','user_correction') NOT NULL DEFAULT 'generated',
+  `fullData` TEXT NULL COMMENT 'Full Loqate Retrieve response JSON',
+  `bbl` VARCHAR(15) NULL COMMENT 'NYC BBL if known',
+  `insertedTime` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX (`address`(191), `unit`),
+  INDEX (`bbl`),
+  INDEX (`source`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

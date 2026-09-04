@@ -27,6 +27,7 @@ module.exports = Base;
  * @type array
  */
 Base.tableClasses = [
+	"Places_AddressUnit",
 	"Places_Autocomplete",
 	"Places_City",
 	"Places_Country",
@@ -57,6 +58,13 @@ Base.db = function () {
 Base.connectionName = function() {
 	return 'Places';
 };
+
+/**
+ * Link to Places.AddressUnit model
+ * @property AddressUnit
+ * @type Places.AddressUnit
+ */
+Base.AddressUnit = Q.require('Places/AddressUnit');
 
 /**
  * Link to Places.Autocomplete model

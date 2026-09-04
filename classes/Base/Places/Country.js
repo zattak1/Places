@@ -26,9 +26,9 @@ var Row = Q.require('Db/Row');
  * @param {Integer} [fields.geonameId] defaults to 0
  * @param {Integer} [fields.numericCode] defaults to 0
  * @param {String} [fields.phoneCode] defaults to null
- * @param {String} [fields.normalizedName] defaults to ""
- * @param {String} [fields.englishName] defaults to ""
- * @param {String} [fields.localName] defaults to ""
+ * @param {String} [fields.normalizedName] defaults to null
+ * @param {String} [fields.englishName] defaults to null
+ * @param {String} [fields.localName] defaults to null
  * @param {String} [fields.emojiFlag] defaults to null
  * @param {Integer} [fields.area] defaults to 0
  * @param {Integer} [fields.population] defaults to 0
@@ -75,19 +75,19 @@ Q.mixin(Base, Row);
 /**
  * @property normalizedName
  * @type String
- * @default ""
+ * @default null
  * 
  */
 /**
  * @property englishName
  * @type String
- * @default ""
+ * @default null
  * 
  */
 /**
  * @property localName
  * @type String
- * @default ""
+ * @default null
  * 
  */
 /**
@@ -566,7 +566,7 @@ Base.prototype.maxSize_normalizedName = function () {
 	 */
 Base.column_normalizedName = function () {
 
-return [["varchar","180","",false],true,"",""];
+return [["varchar","180","",false],true,"",null];
 };
 
 /**
@@ -602,7 +602,7 @@ Base.prototype.maxSize_englishName = function () {
 	 */
 Base.column_englishName = function () {
 
-return [["varchar","180","",false],true,"",""];
+return [["varchar","180","",false],true,"",null];
 };
 
 /**
@@ -638,7 +638,7 @@ Base.prototype.maxSize_localName = function () {
 	 */
 Base.column_localName = function () {
 
-return [["varchar","180","",false],true,"",""];
+return [["varchar","180","",false],true,"",null];
 };
 
 /**

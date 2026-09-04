@@ -20,16 +20,17 @@ abstract class Base_Places
 	 * @type array
 	 */
 	static $table_classnames = array (
-  0 => 'Places_Autocomplete',
-  1 => 'Places_City',
-  2 => 'Places_Country',
-  3 => 'Places_District',
-  4 => 'Places_Hierarchy',
-  5 => 'Places_Ipv4',
-  6 => 'Places_Ipv6',
-  7 => 'Places_Location',
-  8 => 'Places_Postcode',
-  9 => 'Places_Region',
+  0 => 'Places_AddressUnit',
+  1 => 'Places_Autocomplete',
+  2 => 'Places_City',
+  3 => 'Places_Country',
+  4 => 'Places_District',
+  5 => 'Places_Hierarchy',
+  6 => 'Places_Ipv4',
+  7 => 'Places_Ipv6',
+  8 => 'Places_Location',
+  9 => 'Places_Postcode',
+  10 => 'Places_Region',
 );
 
 	/**

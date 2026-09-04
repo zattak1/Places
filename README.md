@@ -235,3 +235,155 @@ updatedTime  timestamp
 ```
 
 `Places.nearby.meters` — distance tiers for the grid system. All `forSubscribers` calls must use one of these values. `Places.google.keys.server` / `web` — Google API keys for server-side calls and client-side Maps JS. `Places.location.default` — fallback coordinates when user location is unknown. `Places.location.ip.changed` — max number of IP-based location updates (prevents overwriting geolocation data). `Places.location.cache.duration` — TTL in seconds for cached Google API responses.
+## Address & Sub-Premise (Unit/Apartment) Lookup
+
+*Added in 1.8.* The Places plugin now supports sub-premise address resolution — looking up individual apartments, suites, and units within a building. This is essential for canvassing, delivery, and any application that needs to know not just the building but the specific unit.
+
+### Architecture
+
+```
+Places_Address             ← Global: Loqate Find/Retrieve + caching
+    ↓ defers to
+Places_NYC                 ← NYC-specific: free open data
+    ↓ falls back to
+Unit generation            ← BldgClass + YearBuilt → numbering scheme
+    ↓ improved by
+User corrections           ← "my apartment isn't listed"
+```
+
+### Places_Address (Global — Loqate)
+
+The primary interface. Handles any address worldwide via [Loqate](https://www.loqate.com/) (formerly PCA Predict / Addressy).
+
+**Key insight:** Loqate's Find API (autocomplete + container drill-down) is **free**. Only the Retrieve call (full address details) costs 1 credit. So drilling down to see all units in a building costs nothing — you only pay when the user selects their specific unit.
+
+```php
+// Autocomplete (FREE)
+$results = Places_Address::find("350 W 42nd St");
+// → [{ Id: "US|...|A", Type: "Address", Text: "350 W 42nd St..." },
+//    { Id: "US|...|C", Type: "BuildingNumber", Text: "350 W 42nd St" }]
+
+// Drill down into a container to see all units (FREE)
+$units = Places_Address::find("", ['container' => $containerId]);
+// → [{ Id: "...", Type: "Address", Text: "Apt 12B" }, ...]
+
+// Get full details for selected unit (1 CREDIT)
+$details = Places_Address::retrieve($addressId);
+// → { SubBuilding: "Apt 12B", BuildingNumber: "350", Street: "W 42nd St", ... }
+
+// The main method — handles everything automatically:
+$result = Places_Address::units("350 W 42nd St, New York, NY 10036");
+// → { units: ["2A","2B",...,"PH1"], source: "cache|nyc|loqate|generated", building: {...} }
+```
+
+### Places_NYC (NYC-Specific — Free Open Data)
+
+For NYC addresses, three free APIs provide building metadata and often real unit numbers without any paid service:
+
+**1. GeoSearch** — address autocomplete, returns BBL (Borough/Block/Lot) and BIN.
+```
+GET https://geosearch.planninglabs.nyc/v2/autocomplete?text=350+w+42
+```
+
+**2. PLUTO (dataset `64uk-42ks`)** — building shape: floors, units, building class, year built.
+```
+GET https://data.cityofnewyork.us/resource/64uk-42ks.json?$where=bbl='1010140001'
+```
+
+**3. Property Assessment Roll (dataset `8y4t-faws`)** — real apartment numbers for condos.
+```
+GET https://data.cityofnewyork.us/resource/8y4t-faws.json
+    ?$where=boro='1' AND block='01014' AND aptno IS NOT NULL
+```
+
+```php
+// NYC-specific autocomplete (free, no key)
+$results = Places_NYC::autocomplete("350 w 42");
+
+// Building metadata from PLUTO (free)
+$building = Places_NYC::building("1010140001");
+// → { floors: 20, unitsRes: 114, bldgClass: "D1", yearBuilt: 1962, ... }
+
+// Units: tries assessment roll first, then generates
+$result = Places_NYC::units("350 W 42nd St, New York, NY 10036");
+// → { units: [...], source: "assessment_roll"|"generated", scheme: "letters" }
+```
+
+### Unit Generation
+
+When real unit numbers aren't available (co-ops, rentals), the plugin generates them from building metadata. The numbering scheme is chosen from `BldgClass` + `YearBuilt`:
+
+| Building Type | BldgClass | Scheme | Example |
+|---|---|---|---|
+| Walk-up, ≤6 floors | C1–C7 | front/rear | `2F`, `2R`, `2FE`, `2FW` |
+| Elevator, pre-1990 | D1–D9 | letters | `12A`, `12B`, `12C` |
+| Elevator, post-1990, tall | D1–D9 | four-digit | `1201`, `1202` |
+| Small walk-up, ≤3 floors | any | sequential | `1`, `2`, `3` |
+
+**Generation rules:**
+- Floor 13 is skipped (absent in most NYC buildings)
+- Letter `I` is skipped (reads as `1`)
+- Ground floor skipped if building has commercial units (`unitsTotal - unitsRes > 0`)
+- Top floor uses `PH` prefix for taller buildings
+- Leftover units (from imperfect division) become `PH1`–`PHn`
+
+### Caching & User Corrections
+
+All lookups are cached in the `places_address_unit` table. The first person who looks up a building pays the API cost (usually zero for NYC); everyone after gets instant results.
+
+When a user's apartment isn't in the generated list, they can submit a correction via the "not listed" escape hatch. Corrections are stored as `source = 'user_correction'` and appear for all future lookups of that building.
+
+```php
+// User correction
+Places_AddressUnit::correct("350 W 42nd St, New York, NY 10036", "14G", "1010140001");
+```
+
+### Database
+
+The `address_unit` table (added in schema `1.8-Places.mysql`):
+
+```
+id            BIGINT AUTO_INCREMENT PK
+address       VARCHAR(500)           — normalized building address
+unit          VARCHAR(31)            — unit/apartment number
+floor         INT NULL               — parsed floor number
+source        ENUM('loqate','assessment_roll','generated','user_correction')
+fullData      TEXT NULL               — full Loqate Retrieve response JSON
+bbl           VARCHAR(15) NULL        — NYC BBL if known
+insertedTime  TIMESTAMP
+
+UNIQUE (address, unit)
+INDEX (bbl)
+```
+
+### Configuration
+
+```json
+{
+    "Places": {
+        "loqate": {
+            "key": "YOUR_LOQATE_API_KEY",
+            "endpoint": "https://api.addressy.com/Capture/Interactive/Find/v1.10/json3.ws",
+            "retrieveEndpoint": "https://api.addressy.com/Capture/Interactive/Retrieve/v1.2/json3.ws"
+        },
+        "nyc": {
+            "appToken": "OPTIONAL_SOCRATA_APP_TOKEN"
+        },
+        "address": {
+            "provider": "auto"
+        }
+    }
+}
+```
+
+`Places.loqate.key` — Loqate API key. Required for non-NYC addresses.
+`Places.nyc.appToken` — Optional Socrata app token to avoid throttling on NYC open data APIs. Free to register.
+`Places.address.provider` — `"auto"` (try NYC first, fall back to Loqate), `"loqate"` (always use Loqate), `"nyc"` (NYC only).
+
+### API Endpoint
+
+```
+GET /Places/address?text=350+w+42          → autocomplete results
+GET /Places/address?address=350+W+42nd+St  → unit list for building
+POST /Places/address  { address, unit }    → user correction
+```
