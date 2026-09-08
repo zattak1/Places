@@ -26,8 +26,10 @@ class Places_NYC
 	 */
 	static function autocomplete($text)
 	{
-		$url = 'https://geosearch.planninglabs.nyc/v2/autocomplete?'
-			. http_build_query(array('text' => $text));
+		// Endpoint is configurable so it can be pointed at a mock or a mirror.
+		$base = Q_Config::get('Places', 'nyc', 'geosearchUrl',
+			'https://geosearch.planninglabs.nyc/v2/autocomplete');
+		$url = $base . '?' . http_build_query(array('text' => $text));
 		$response = Q_Utils::get($url);
 		$data = Q::json_decode($response, true);
 
@@ -58,7 +60,9 @@ class Places_NYC
 	 */
 	static function building($bbl)
 	{
-		$url = 'https://data.cityofnewyork.us/resource/64uk-42ks.json?'
+		$base = Q_Config::get('Places', 'nyc', 'plutoUrl',
+			'https://data.cityofnewyork.us/resource/64uk-42ks.json');
+		$url = $base . '?'
 			. http_build_query(array(
 				'$select' => 'bbl,numfloors,unitsres,unitstotal,numbldgs,bldgclass,yearbuilt,address,zipcode,latitude,longitude',
 				'$where' => "bbl='$bbl'",
@@ -161,7 +165,9 @@ class Places_NYC
 	{
 		if (!$streetName) return array();
 
-		$url = 'https://data.cityofnewyork.us/resource/8y4t-faws.json?'
+		$base = Q_Config::get('Places', 'nyc', 'assessmentUrl',
+			'https://data.cityofnewyork.us/resource/8y4t-faws.json');
+		$url = $base . '?'
 			. http_build_query(array(
 				'$select' => 'aptno',
 				'$where' => "boro='$boro' AND block='$block' AND upper(street_name) LIKE upper('%$streetName%') AND aptno IS NOT NULL",
@@ -233,6 +239,13 @@ class Places_NYC
 		$startFloor = ($commercialUnits > 0) ? 2 : 1; // skip ground floor if retail
 		$resFloors = $floors - ($startFloor - 1);
 
+		// Floor 13 is skipped below, so it must not count toward the divisor —
+		// otherwise the last few units are never generated and the building
+		// comes up short of unitsRes.
+		if ($floors >= 13 and $startFloor <= 13) {
+			--$resFloors;
+		}
+
 		if ($resFloors <= 0) {
 			return array('units' => array(), 'scheme' => $scheme);
 		}
@@ -285,6 +298,13 @@ class Places_NYC
 				}
 				$generated++;
 			}
+		}
+
+		// Imperfect division can still leave a remainder once every floor has
+		// had its share. The README specifies these become PH1..PHn.
+		$leftover = $unitsRes - $generated;
+		for ($i = 1; $i <= $leftover; ++$i) {
+			$units[] = 'PH' . $i;
 		}
 
 		return array('units' => $units, 'scheme' => $scheme);

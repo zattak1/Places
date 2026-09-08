@@ -142,9 +142,13 @@ class Places_Address
 		if (class_exists('Places_NYC') && Places_NYC::isNYCAddress($address)) {
 			$nycResult = Places_NYC::units($address);
 			if (!empty($nycResult['units'])) {
-				// Cache the results
+				// Preserve where the numbers came from: 'assessment_roll' means
+				// real apartment numbers, 'generated' means inferred from the
+				// building's floor and unit count. Caching both as 'generated'
+				// made a verified list indistinguishable from a guess.
+				$nycSource = Q::ifset($nycResult, 'source', 'generated');
 				foreach ($nycResult['units'] as $unit) {
-					self::_cacheUnitSimple($address, $unit);
+					self::_cacheUnitSimple($address, $unit, null, $nycSource);
 				}
 				return $nycResult;
 			}
@@ -297,7 +301,7 @@ class Places_Address
 	 * @static
 	 * @private
 	 */
-	private static function _cacheUnitSimple($address, $unit, $fullData = null)
+	private static function _cacheUnitSimple($address, $unit, $fullData = null, $source = null)
 	{
 		// Store in places_address_unit table
 		try {
@@ -307,7 +311,7 @@ class Places_Address
 			if (!$row->retrieve()) {
 				$row->floor = self::parseFloor($unit);
 				$row->fullData = $fullData ? Q::json_encode($fullData) : null;
-				$row->source = $fullData ? 'loqate' : 'generated';
+				$row->source = $source ? $source : ($fullData ? 'loqate' : 'generated');
 				$row->save();
 			}
 		} catch (Exception $e) {
